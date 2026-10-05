@@ -21,12 +21,7 @@ Not all tools may be available — use only what is accessible in your current s
 | `extract_battlecards` | Keyword search across battlecards |
 | `create_card` / `update_card` / `delete_cards` | Create, edit, or remove cards |
 | `create_battlecard` / `update_battlecard` / `delete_battlecards` | Create, edit, or remove battlecards |
-| `search_win_loss_transcripts` | Win/loss interview transcripts |
-| `list_win_loss_transcripts` | Browse available transcripts |
-| `get_win_loss_transcript` | Retrieve a specific transcript |
-| `search_win_loss_reports` | Win/loss analysis reports |
-| `list_win_loss_reports` | Browse available reports |
-| `get_win_loss_report` | Retrieve a specific report |
+| `search_klue_content` | Win/loss interviews — pass `filters.category="win_loss"` with `subcategory="transcript"` (verbatim buyer interviews) or `subcategory="report"` (synthesized analyses); always pass a natural-language `query_text` |
 
 Source types you can surface (availability varies by account):
 - **Alerts** — real-time news from news wires, blogs, RSS, Slack
@@ -61,7 +56,9 @@ Apply date filters to scope results. Pass them as part of your tool call wheneve
 | Tool group | Params | Format | Recommended default |
 |---|---|---|---|
 | `search`, `extract_cards`, `extract_battlecards` | `updatedAfter` / `updatedBefore` | ISO8601 (e.g. `2024-11-01T00:00:00Z`) | 6 months ago |
-| `search_win_loss_transcripts`, `search_win_loss_reports` | `interview_date_after` / `interview_date_before` | YYYY-MM-DD (e.g. `2024-11-01`) | 12 months ago |
+| `search_klue_content` | `created_after` / `created_before` | ISO8601 (e.g. `2024-11-01T00:00:00Z`) | none — only set when the user asks for a time range |
+
+`search_klue_content` dates are when the interview was added to Klue, not when it took place, so treat a range on them as approximate and say so in the answer.
 
 ## Quote Rules
 
@@ -85,7 +82,7 @@ Apply date filters to scope results. Pass them as part of your tool call wheneve
 
 1. Call `search` with competitor + dimension as query (e.g., `"us vs Microsoft Teams video integration"`)
 2. Call `extract_battlecards` with the competitor name to surface curated positioning
-3. If win-loss tools are available, call `search_win_loss_transcripts` with the competitor name to add buyer voice
+3. If `search_klue_content` is available, search `win_loss` / `transcript` with the competitor name to add buyer voice
 4. Synthesize with pro-company framing; for every competitor strength you acknowledge, follow immediately with handling guidance
 
 *Multi-competitor variant ("How do we stack up against Microsoft Teams, Google Chat, and Discord?"): repeat steps 1–3 per competitor, then compile into a Markdown table with one row per competitor and one column per dimension, citing inline in each cell.*
@@ -95,22 +92,22 @@ Apply date filters to scope results. Pass them as part of your tool call wheneve
 
 1. Call `extract_battlecards` with the competitor name — battlecards frequently contain pre-built objection responses
 2. Call `search` with the specific objection topic (e.g., `"Microsoft Teams onboarding objection"`)
-3. If win-loss tools are available, call `search_win_loss_transcripts` to find buyers who raised and moved past the same objection
+3. If `search_klue_content` is available, search `win_loss` / `transcript` to find buyers who raised and moved past the same objection
 4. Structure response: validate the concern briefly → reframe with evidence → pivot to your differentiator
 
 ### Claim Validation
 *"Is it true that Microsoft Teams' video integration provides better deal insights?", "Is Google Chat actually better than us for organizing channels at scale?"*
 
 1. Call `search` and `extract_battlecards` in parallel with the specific claim as the query
-2. If win-loss tools are available, call `search_win_loss_transcripts` to add buyer-side evidence
+2. If `search_klue_content` is available, search `win_loss` / `transcript` to add buyer-side evidence
 3. Structure the response as: claim → evidence supporting → evidence against → verdict (supported / refuted / mixed / insufficient evidence)
 4. Quote sources verbatim — never restate the claim as fact in the verdict without citation directly behind it
 
 ### Win/Loss Analysis
 *"Why are we losing to Discord?", "What decision factors come up in our wins against Microsoft Teams?", "What objections come up most often?"*
 
-1. Call `search_win_loss_transcripts` with competitor + outcome framing (e.g., `"lost deal Discord decision factors"`)
-2. Call `search_win_loss_reports` with the same query for synthesized patterns across deals
+1. Call `search_klue_content` with `category="win_loss"`, `subcategory="transcript"` and competitor + outcome framing as `query_text` (e.g., `"lost deal Discord decision factors"`)
+2. Repeat with `subcategory="report"` and the same query for synthesized patterns across deals
 3. Call `search` to check whether curated intelligence exists on the same topic
 4. Count and cluster themes across sources; quote buyer language verbatim with attribution; surface win vs. loss differences
 
@@ -118,7 +115,7 @@ Apply date filters to scope results. Pass them as part of your tool call wheneve
 *"Create a 'Why We Win' card against Discord", "Write objection-handling content for Microsoft Teams pricing", "Update the Google Chat battlecard"*
 
 1. Call `search` to surface existing cards and alerts on the topic
-2. Call `search_win_loss_transcripts` and `search_win_loss_reports` for supporting evidence and buyer quotes
+2. If `search_klue_content` is available, search `win_loss` transcripts and reports for supporting evidence and buyer quotes
 3. Draft card content grounded entirely in retrieved sources — no claims from memory
 4. Call `create_card` or `update_card` scoped to the relevant competitor; include inline citations in card body
 

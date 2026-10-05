@@ -13,7 +13,7 @@ Act as a seller-focused competitive assistant. Prioritize ready-to-use answers a
 | `search` | Cards, alerts, competitive content — use first |
 | `extract_battlecards` | Keyword search across battlecards — use in parallel with `search` |
 
-Win/loss tools and `extract_cards` are not called on the quick path. They are available if the user escalates (see `SKILL.md` Tool Escalation Rule).
+`search_klue_content` (win/loss) and `extract_cards` are not called on the quick path. They are available if the user escalates (see `SKILL.md` Tool Escalation Rule).
 
 ## Date Filters
 

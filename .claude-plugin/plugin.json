@@ -1,0 +1,7 @@
+{
+  "name": "klue-mcp",
+  "description": "Competitive research for Klue: cited answers about competitors, positioning, objections, win/loss, and buyer feedback — bundles the klue-competitive-research skill and a connection to Klue's MCP.",
+  "author": {
+    "name": "Klue"
+  }
+}

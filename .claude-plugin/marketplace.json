@@ -1,0 +1,13 @@
+{
+  "name": "klue-mcp-public",
+  "owner": {
+    "name": "Klue"
+  },
+  "plugins": [
+    {
+      "name": "klue-mcp",
+      "source": "./",
+      "description": "Klue competitive intelligence — cited answers about competitors, positioning, objections, win/loss patterns, and buyer feedback, with a bundled connection to Klue's MCP."
+    }
+  ]
+}
