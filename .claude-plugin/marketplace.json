@@ -1,5 +1,6 @@
 {
   "name": "klue-mcp-public",
+  "description": "Klue connects Claude to competitive intelligence, seller guidance, and cited deal research.",
   "owner": {
     "name": "Klue"
   },

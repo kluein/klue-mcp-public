@@ -1,6 +1,10 @@
 {
   "name": "klue-mcp",
-  "description": "Competitive research for Klue: cited answers about competitors, positioning, objections, win/loss, and buyer feedback — bundles the klue-competitive-research skill and a connection to Klue's MCP.",
+  "version": "1.2.1",
+  "description": "Competitive research for Klue: grounded seller guidance on competitors, positioning, objections, win/loss, buyer feedback, and deals, with a connection to Klue's MCP.",
+  "license": "Apache-2.0",
+  "icon": ".claude-plugin/icon.png",
+  "privacyPolicyUrl": "https://klue.com/privacy",
   "author": {
     "name": "Klue"
   }
