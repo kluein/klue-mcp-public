@@ -1,7 +1,14 @@
 {
   "name": "klue-mcp",
+  "displayName": "Klue",
   "version": "1.2.1",
   "description": "Competitive research for Klue: grounded seller guidance on competitors, positioning, objections, win/loss, buyer feedback, and deals, with a connection to Klue's MCP.",
+  "keywords": [
+    "competitive intelligence",
+    "sales enablement",
+    "competitive research",
+    "win-loss analysis"
+  ],
   "license": "Apache-2.0",
   "icon": ".claude-plugin/icon.png",
   "privacyPolicyUrl": "https://klue.com/privacy",
